@@ -40,19 +40,19 @@ export default function RootLayout() {
     <AppProvider>
       <QueryClientProvider client={queryClient}>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <Stack
-            screenOptions={{ headerShown: false }}
-            initialRouteName="index"
-          >
-            <Stack.Screen name="index" />
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="onboarding" />
-            <Stack.Screen name="create-profile" />
-            <Stack.Screen name="edit-profile" />
-            <Stack.Screen name="connect-wallet" />
-            <Stack.Screen name="request-blood" />
-            <Stack.Screen name="urgent-request/[id]" />
-          </Stack>
+            <Stack
+                screenOptions={{ headerShown: false }}
+                initialRouteName="index"
+            >
+                <Stack.Screen name="index" />
+                <Stack.Screen name="(tabs)" />
+                <Stack.Screen name="onboarding" />
+                <Stack.Screen name="create-profile" />
+                <Stack.Screen name="edit-profile" />
+                <Stack.Screen name="connect-wallet" />
+                <Stack.Screen name="request-blood" />
+                <Stack.Screen name="urgent-request/[id]" />
+            </Stack>
         </GestureHandlerRootView>
       </QueryClientProvider>
     </AppProvider>

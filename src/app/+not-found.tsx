@@ -73,7 +73,7 @@ function NotFoundScreen() {
       const hasTabsIndex = expoSitemap?.children?.some(
         (child) =>
           child.contextKey === './(tabs)/_layout.jsx' &&
-          child.children.some((child) => child.contextKey === './(tabs)/index.jsx')
+          child.children.some((child) => child.contextKey === './(tabs)/requests.jsx')
       );
       if (isExpoSitemap) {
         if (hasTabsIndex) {

@@ -129,7 +129,7 @@ export default function BloodRequestsScreen() {
         if (filter === "critical") {
             filtered = bloodRequestsData.filter(req => req.urgency === "Critical");
         } else if (filter === "urgent") {
-            filtered = bloodRequestsData.filter(req => req.urgency === "Urgent");
+            filtered = bloodRequestsData.filter(req => req.urgency === "Urgent" || req.urgency === "Critical");
         } else if (filter === "nearby") {
             filtered = bloodRequestsData.filter(req => parseFloat(req.distance) <= 5.0);
         }
@@ -142,19 +142,19 @@ export default function BloodRequestsScreen() {
     };
 
     const handleRequestPress = (requestId) => {
-        router.push(`/urgent-request-detail?id=${requestId}`);
+        router.push(`/urgent-request/${requestId}`);
     };
 
     const getUrgencyColor = (urgency) => {
         switch (urgency) {
             case "Critical":
-                return theme.brand.primary;
+                return "#DC143C";
             case "Urgent":
-                return theme.brand.warning;
+                return "#FF6B35";
             case "High":
                 return "#FFA500";
             default:
-                return theme.brand.secondary;
+                return "#10B981";
         }
     };
 
@@ -180,12 +180,12 @@ export default function BloodRequestsScreen() {
     };
 
     return (
-        <View style={{ flex: 1, backgroundColor: theme.background.primary }}>
-            <StatusBar style={theme.isDarkMode ? "light" : "dark"} />
+        <View style={{ flex: 1, backgroundColor: "#0D0D0D" }}>
+            <StatusBar style="light" />
 
             {/* Background Gradient */}
             <LinearGradient
-                colors={theme.gradient.primary}
+                colors={["#1A1A1A", "#0D0D0D"]}
                 style={{
                     position: "absolute",
                     left: 0,
@@ -207,15 +207,12 @@ export default function BloodRequestsScreen() {
                 }}
             >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Pressable onPress={handleBack} style={{ marginRight: 20 }}>
-                        <ArrowLeft size={24} color={theme.text.primary} />
-                    </Pressable>
                     <View>
                         <Text
                             style={{
                                 fontSize: 18,
                                 fontWeight: "600",
-                                color: theme.text.primary,
+                                color: "#FFFFFF",
                             }}
                         >
                             Blood Requests
@@ -223,7 +220,7 @@ export default function BloodRequestsScreen() {
                         <Text
                             style={{
                                 fontSize: 14,
-                                color: theme.text.secondary,
+                                color: "rgba(255, 255, 255, 0.6)",
                                 marginTop: 2,
                             }}
                         >
@@ -250,12 +247,12 @@ export default function BloodRequestsScreen() {
                     style={{
                         padding: 8,
                         borderRadius: 12,
-                        backgroundColor: theme.surface.secondary,
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
                         borderWidth: 1,
-                        borderColor: theme.surface.border,
+                        borderColor: "rgba(255, 255, 255, 0.2)",
                     }}
                 >
-                    <Filter size={20} color={theme.text.primary} />
+                    <Filter size={20} color="#FFFFFF" />
                 </Pressable>
             </View>
 
@@ -270,12 +267,12 @@ export default function BloodRequestsScreen() {
                 }}
             >
                 <LinearGradient
-                    colors={theme.gradient.brand}
+                    colors={["#DC143C", "#FF6B6B"]}
                     style={{
                         borderRadius: 16,
                         padding: 16,
                         borderWidth: 1,
-                        borderColor: theme.surface.border,
+                        borderColor: "rgba(255, 255, 255, 0.1)",
                     }}
                 >
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
@@ -283,7 +280,7 @@ export default function BloodRequestsScreen() {
                             <Text
                                 style={{
                                     fontSize: 14,
-                                    color: theme.text.secondary,
+                                    color: "rgba(255, 255, 255, 0.8)",
                                     marginBottom: 4,
                                 }}
                             >
@@ -293,7 +290,7 @@ export default function BloodRequestsScreen() {
                                 style={{
                                     fontSize: 24,
                                     fontWeight: "bold",
-                                    color: theme.text.primary,
+                                    color: "#FFFFFF",
                                 }}
                             >
                                 {filteredRequests.length}
@@ -304,14 +301,14 @@ export default function BloodRequestsScreen() {
                                 width: 50,
                                 height: 50,
                                 borderRadius: 25,
-                                backgroundColor: `${theme.brand.primary}20`,
+                                backgroundColor: "rgba(255, 255, 255, 0.2)",
                                 alignItems: "center",
                                 justifyContent: "center",
                                 borderWidth: 2,
-                                borderColor: theme.brand.primary,
+                                borderColor: "#FFFFFF",
                             }}
                         >
-                            <Droplet size={24} color={theme.brand.primary} />
+                            <Droplet size={24} color="#FFFFFF" />
                         </View>
                     </View>
                 </LinearGradient>
@@ -337,11 +334,11 @@ export default function BloodRequestsScreen() {
                         <Pressable
                             onPress={() => handleRequestPress(request.id)}
                             style={{
-                                backgroundColor: theme.surface.primary,
+                                backgroundColor: "rgba(255, 255, 255, 0.05)",
                                 borderRadius: 16,
                                 padding: 20,
                                 borderWidth: 1,
-                                borderColor: theme.surface.border,
+                                borderColor: "rgba(255, 255, 255, 0.1)",
                                 shadowColor: "#000",
                                 shadowOffset: { width: 0, height: 2 },
                                 shadowOpacity: 0.1,
@@ -383,7 +380,7 @@ export default function BloodRequestsScreen() {
                                 <Text
                                     style={{
                                         fontSize: 12,
-                                        color: theme.text.tertiary,
+                                        color: "rgba(255, 255, 255, 0.5)",
                                     }}
                                 >
                                     {formatTimeAgo(request.timestamp)}
@@ -392,11 +389,11 @@ export default function BloodRequestsScreen() {
 
                             {/* Hospital Info */}
                             <View style={{ flexDirection: "row", alignItems: "flex-start", marginBottom: 12 }}>
-                                <MapPin size={16} color={theme.text.secondary} />
+                                <MapPin size={16} color="rgba(255, 255, 255, 0.6)" />
                                 <Text
                                     style={{
                                         fontSize: 14,
-                                        color: theme.text.secondary,
+                                        color: "rgba(255, 255, 255, 0.6)",
                                         marginLeft: 8,
                                         flex: 1,
                                     }}
@@ -411,7 +408,7 @@ export default function BloodRequestsScreen() {
                                 style={{
                                     fontSize: 16,
                                     fontWeight: "600",
-                                    color: theme.text.primary,
+                                    color: "#FFFFFF",
                                     marginBottom: 8,
                                 }}
                                 numberOfLines={2}
@@ -422,7 +419,7 @@ export default function BloodRequestsScreen() {
                             <Text
                                 style={{
                                     fontSize: 14,
-                                    color: theme.text.secondary,
+                                    color: "rgba(255, 255, 255, 0.7)",
                                     lineHeight: 20,
                                     marginBottom: 12,
                                 }}
@@ -440,11 +437,11 @@ export default function BloodRequestsScreen() {
                                 }}
                             >
                                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <Clock size={14} color={theme.text.tertiary} />
+                                    <Clock size={14} color="rgba(255, 255, 255, 0.5)" />
                                     <Text
                                         style={{
                                             fontSize: 12,
-                                            color: theme.text.tertiary,
+                                            color: "rgba(255, 255, 255, 0.5)",
                                             marginLeft: 4,
                                         }}
                                     >
@@ -453,11 +450,11 @@ export default function BloodRequestsScreen() {
                                 </View>
 
                                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <User size={14} color={theme.text.tertiary} />
+                                    <User size={14} color="rgba(255, 255, 255, 0.5)" />
                                     <Text
                                         style={{
                                             fontSize: 12,
-                                            color: theme.text.tertiary,
+                                            color: "rgba(255, 255, 255, 0.5)",
                                             marginLeft: 4,
                                         }}
                                     >
@@ -466,11 +463,11 @@ export default function BloodRequestsScreen() {
                                 </View>
 
                                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <Droplet size={14} color={theme.brand.primary} />
+                                    <Droplet size={14} color="#DC143C" />
                                     <Text
                                         style={{
                                             fontSize: 12,
-                                            color: theme.brand.primary,
+                                            color: "#DC143C",
                                             fontWeight: "600",
                                             marginLeft: 4,
                                         }}
@@ -488,13 +485,13 @@ export default function BloodRequestsScreen() {
                                     marginTop: 12,
                                     paddingTop: 12,
                                     borderTopWidth: 1,
-                                    borderTopColor: theme.surface.border,
+                                    borderTopColor: "rgba(255, 255, 255, 0.1)",
                                 }}
                             >
                                 <Text
                                     style={{
                                         fontSize: 12,
-                                        color: theme.text.tertiary,
+                                        color: "rgba(255, 255, 255, 0.5)",
                                     }}
                                 >
                                     {request.distance} away • {request.estimatedArrivalTime} travel
@@ -521,19 +518,19 @@ export default function BloodRequestsScreen() {
                                 width: 80,
                                 height: 80,
                                 borderRadius: 40,
-                                backgroundColor: `${theme.brand.secondary}20`,
+                                backgroundColor: "rgba(255, 255, 255, 0.1)",
                                 alignItems: "center",
                                 justifyContent: "center",
                                 marginBottom: 20,
                             }}
                         >
-                            <Heart size={32} color={theme.brand.secondary} />
+                            <Heart size={32} color="rgba(255, 255, 255, 0.6)" />
                         </View>
                         <Text
                             style={{
                                 fontSize: 18,
                                 fontWeight: "600",
-                                color: theme.text.primary,
+                                color: "#FFFFFF",
                                 textAlign: "center",
                                 marginBottom: 8,
                             }}
@@ -543,7 +540,7 @@ export default function BloodRequestsScreen() {
                         <Text
                             style={{
                                 fontSize: 14,
-                                color: theme.text.secondary,
+                                color: "rgba(255, 255, 255, 0.6)",
                                 textAlign: "center",
                                 lineHeight: 20,
                             }}

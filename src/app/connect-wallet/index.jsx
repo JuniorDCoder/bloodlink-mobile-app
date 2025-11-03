@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Pressable, Dimensions, Alert } from "react-native";
+import { View, Text, Pressable, Dimensions, Alert, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -156,7 +156,7 @@ export default function ConnectWalletScreen() {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#0D0D0D" }}>
+    <ScrollView style={{ flex: 1, backgroundColor: "#0D0D0D" }}>
       <StatusBar style="light" />
 
       {/* Background Gradient */}
@@ -495,6 +495,6 @@ export default function ConnectWalletScreen() {
           </Text>
         </Pressable>
       </View>
-    </View>
+    </ScrollView>
   );
 }

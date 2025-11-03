@@ -79,6 +79,11 @@ export default function DashboardScreen() {
     router.push(`/urgent-request/${requestId}`);
   };
 
+    const handleNotificationsPress = () => {
+        console.log("Button Pressed")
+        router.push("/notifications");
+    };
+
   return (
     <View style={{ flex: 1, backgroundColor: theme.background.primary }}>
       <StatusBar style={isDarkMode ? "light" : "dark"} />
@@ -185,17 +190,18 @@ export default function DashboardScreen() {
               </Pressable>
 
               {/* Notifications */}
-              <Pressable
-                style={{
-                  padding: 12,
-                  borderRadius: 20,
-                  backgroundColor: theme.surface.primary,
-                  borderWidth: 1,
-                  borderColor: theme.surface.border,
-                }}
-              >
-                <Bell size={24} color={theme.text.primary} />
-              </Pressable>
+                <Pressable
+                    onPress={handleNotificationsPress}
+                    style={{
+                        padding: 12,
+                        borderRadius: 20,
+                        backgroundColor: theme.surface.primary,
+                        borderWidth: 1,
+                        borderColor: theme.surface.border,
+                    }}
+                >
+                    <Bell size={24} color={theme.text.primary} />
+                </Pressable>
             </View>
           </View>
         </View>
